@@ -7,10 +7,10 @@ public class Leetcode_695_MaxAreaOfIsland {
         int rows = grid.length;
         int cols = grid[0].length;
 
-        // Iterate through each cell in the grid
+        // Traverse the grid
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                // If it's land (1), perform DFS to calculate area
+                // Start DFS if a land cell is found
                 if (grid[r][c] == 1) {
                     maxArea = Math.max(maxArea, dfs(grid, r, c));
                 }
@@ -20,16 +20,16 @@ public class Leetcode_695_MaxAreaOfIsland {
     }
 
     private int dfs(int[][] grid, int r, int c) {
-        // Base case: if out of bounds or water (0), return 0
+        // Base case: out of bounds or water
         if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] == 0) {
             return 0;
         }
 
-        // Mark current land cell as visited
+        // Mark this cell as visited
         grid[r][c] = 0;
         int area = 1;
 
-        // Explore 4 directions
+        // Explore in 4 directions
         area += dfs(grid, r + 1, c);
         area += dfs(grid, r - 1, c);
         area += dfs(grid, r, c + 1);
@@ -40,6 +40,11 @@ public class Leetcode_695_MaxAreaOfIsland {
 }
 
 /*
-Time Complexity: O(m * n) — Each cell is visited once.
-Space Complexity: O(m * n) — In worst case, recursion stack uses space equal to number of land cells.
+Approach: Depth-First Search (DFS)
+- Treat the grid as a graph and traverse each island using DFS.
+- Count the area by recursively visiting all connected land cells (value 1).
+- Mark visited cells to avoid cycles.
+
+Time Complexity: O(m * n) — Every cell is visited once.
+Space Complexity: O(m * n) — In the worst case, the recursion stack can be as deep as all land cells.
 */
